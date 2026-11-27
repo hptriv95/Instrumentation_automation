@@ -12,7 +12,6 @@
 
 import os
 
-
 import usb.core
 import usb.backend.libusb1
 
@@ -31,11 +30,18 @@ print(simulation_path) # Debug step
 ####################
 
 ####################
-## Find out if DSO gets detected using its VID and PID
+## Setup necessary variables 
 ## Block 3 begins
 
-
 backend = usb.backend.libusb1.get_backend() # .backend provides the interface between PyUSB and the USB library on PC. .libusb1 is the backend implementaiton which we want. It handles discovery of USB devices, accessing interfaces, transfering data, etc. .backend() searches for the libusb-1.0 , loads it and creates backend interfacev 
+found = False # Initializes a boolean variable to flag the discovery of our DSO
+
+## Variables are set or initialized. Block 3 ends 
+####################
+
+####################
+## Find out if DSO gets detected using its VID and PID
+## Block 4 begins
 
 if backend is None:
     print("ERROR: libusb1 backend unavailable") # If the attempt to load libusb library fails then backend is None
@@ -49,8 +55,6 @@ else:
 
     print("\nConnected USB devices:\n") # Print the heading
 
-    found = False # Initializes a boolean variable to flag the discovery of our DSO
-
     for instrument in devices: # Loop through the devices
         print(f"VID: {instrument.idVendor:04X} | PID: {instrument.idProduct:04X}") # Print the respective Vendor ID and Product ID in 4 digit hexadecimal format
 
@@ -61,7 +65,6 @@ else:
 
     if not found: # If found variable is still 0
         print("\nVAR TECH DSO not found.")
-
-
+    
 ## Final block ends.Enjoy!
 ####################
